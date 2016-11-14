@@ -1,19 +1,28 @@
 {
-	"name" : "ExFace/EpsonIHubPrinterConnector",
-	"description" : "Enables printouts via the webservice API of Epsons new iHub POS printers",
-	"type" : "library",
-	"license" : "GPL-3.0+",
-	"authors" : [{
-			"name" : "Andrej Kabachnik",
-			"email" : "kabachnik@gmail.com",
-			"role" : "Creator"
-		}
-	],
-	"support" : {
-		"issues" : "https://github.com/exface/EpsonIHubPrinterConnector/issues"
-	},
-	"require" : {
-		"exface/core" : "~0.1",
-		"kabachello/phptexttable": "~0.1"
-	}
+    "name": "ExFace/EpsonIHubPrinterConnector",
+    "description": "Enables printouts via the webservice API of Epsons new iHub POS printers",
+    "type": "library",
+    "license": "GPL-3.0+",
+    "authors": [
+        {
+            "name": "Andrej Kabachnik",
+            "email": "kabachnik@gmail.com",
+            "role": "Creator"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/exface/EpsonIHubPrinterConnector/issues"
+    },
+    "require": {
+        "exface/core": "~0.1",
+        "kabachello/phptexttable": "~0.1"
+    },
+    "extra": {
+        "app": {
+            "app_uid": "0x11e6aa6582221260a730e4b318306b9a",
+            "app_alias": "exface.EpsonIHubPrinterConnector",
+            "model_md5": "24f896e5a3d68956d2dc4b6002ca895b",
+            "model_timestamp": "2016-11-14 12:26:03"
+        }
+    }
 }

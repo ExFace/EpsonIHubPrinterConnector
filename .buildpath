@@ -4,5 +4,5 @@
 	<buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
 	<buildpathentry external="true" kind="lib" path="C:/wamp/www/exface/exface/vendor/exface/Core"/>
 	<buildpathentry external="true" kind="lib" path="C:/wamp/www/exface/exface/vendor/kabachello/phptexttable"/>
-	<buildpathentry external="true" kind="lib" path="C:/wamp/www/exface/exface/vendor/guzzlehttp/guzzle/src"/>
+	<buildpathentry external="true" kind="lib" path="C:/wamp/www/exface/exface/vendor/exface/UrlDataConnector"/>
 </buildpath>

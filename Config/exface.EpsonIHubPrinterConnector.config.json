@@ -1,0 +1,7 @@
+{
+	"DATA_SOURCE_UID": "0x11e6ab0ecce8679ca730e4b318306b9a",
+	"WEBSERVICE_URL": "cgi-bin/epos/service.cgi",
+	"DEFAULT_PRINTER_DEVICE_ID": "local_printer",
+	"DEFAULT_PRINTING_TIMEOUT": "10000",
+	"DEFAULT_PRINT_JOB_ID": "ABC123"
+}

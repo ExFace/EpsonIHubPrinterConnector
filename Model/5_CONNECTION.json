@@ -86,6 +86,22 @@
             "attribute_alias": "FILTER_CONTEXT"
         }
     ],
+    "rows": [
+        {
+            "CREATED_ON": "2016-11-15 08:22:56",
+            "MODIFIED_ON": "2016-11-15 08:57:26",
+            "CREATED_BY_USER": "0x31000000000000000000000000000000",
+            "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
+            "UID": "0x11e6ab0cb4631a7ea730e4b318306b9a",
+            "APP": "0x11e6aa6582221260a730e4b318306b9a",
+            "LABEL": "Epson iHub default connection",
+            "CONNECTOR": "exface\\UrlDataConnector\\DataConnectors\\HttpConnector.php",
+            "CONFIG": "{\"URL\":\"http:\/\/192.168.192.168\/\"}",
+            "READONLY": "0",
+            "ALIAS": "EPSON_IHUB_DEFAULT",
+            "FILTER_CONTEXT": ""
+        }
+    ],
     "totals_rows": [],
     "filters": {
         "operator": "AND",

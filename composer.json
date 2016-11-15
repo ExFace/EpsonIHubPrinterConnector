@@ -21,8 +21,8 @@
         "app": {
             "app_uid": "0x11e6aa6582221260a730e4b318306b9a",
             "app_alias": "exface.EpsonIHubPrinterConnector",
-            "model_md5": "24f896e5a3d68956d2dc4b6002ca895b",
-            "model_timestamp": "2016-11-14 12:26:03"
+            "model_md5": "6e79ef7113c81bd83ec59d3888155d0d",
+            "model_timestamp": "2016-11-15 08:57:26"
         }
     }
 }

@@ -86,6 +86,22 @@
             "attribute_alias": "QUERYBUILDER"
         }
     ],
+    "rows": [
+        {
+            "CREATED_ON": "2016-11-15 08:37:56",
+            "MODIFIED_ON": "2016-11-15 08:40:44",
+            "CREATED_BY_USER": "0x31000000000000000000000000000000",
+            "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
+            "UID": "0x11e6ab0ecce8679ca730e4b318306b9a",
+            "APP": "0x11e6aa6582221260a730e4b318306b9a",
+            "CONNECTION": "0x11e6ab0cb4631a7ea730e4b318306b9a",
+            "BASE_OBJECT": "",
+            "READONLY": "0",
+            "LABEL": "Epson iHub POS printer",
+            "ALIAS": "EPSON_IHUB_PRINTER",
+            "QUERYBUILDER": "exface\\UrlDataConnector\\QueryBuilders\\JsonUrlBuilder.php"
+        }
+    ],
     "totals_rows": [],
     "filters": {
         "operator": "AND",

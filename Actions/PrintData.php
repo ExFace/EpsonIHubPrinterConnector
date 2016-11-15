@@ -1,12 +1,13 @@
 <?php namespace exface\EpsonIHubPrinterConnector\Actions;
 
 use exface\Core\CommonLogic\AbstractAction;
-use GuzzleHttp\Client;
-use exface\Core\Exceptions\ActionRuntimeException;
 use exface\Core\Factories\DataSheetFactory;
 use exface\Core\Factories\WidgetFactory;
 use exface\Core\Widgets\Data;
 use kabachello\phpTextTable\TextTable;
+use exface\Core\Interfaces\DataSources\DataConnectionInterface;
+use exface\UrlDataConnector\DataConnectors\HttpConnector;
+use exface\Core\Exceptions\DataConnectionError;
 
 class PrintData extends AbstractAction {
 	private $document_object_relation_path = null;
@@ -15,6 +16,7 @@ class PrintData extends AbstractAction {
 	private $header_text = null;
 	private $footer_text = null;
 	private $footer_barcode = null;
+	private $data_connection_alias = null;
 	
 	protected function perform(){
 		$xml = '<text>' . $this->get_header_text() ."\n" . '</text>'  ."\n";
@@ -59,12 +61,13 @@ class PrintData extends AbstractAction {
 		$xml .= '<text>' . "\n" . $this->get_footer_text() . "\n" . '</text>'  ."\n";
 		$xml .= $this->build_xml_cut();
 		
-		$result = $this->print($xml);
-		if ($result->getStatusCode() == 200){
+		try {
+			$result = $this->print($xml);
 			$this->set_result_message('Document sent to printer');
-		} else {
-			throw new ActionRuntimeException('Could not print on "' . $this->get_printer_url() . '" (Error "' . $result->getStatusCode() . '")!');
+		} catch (DataConnectionError $e){
+			$this->set_result_message('Printing failed');
 		}
+			
 	}
 	
 	protected function get_document_object(){
@@ -86,9 +89,9 @@ class PrintData extends AbstractAction {
 <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
 	<s:Header>
 		<parameter xmlns="http://www.epson-pos.com/schemas/2011/03/epos-print">
-			<devid>local_printer</devid>
-			<timeout>10000</timeout>
-			<printjobid>ABC123</printjobid>
+			<devid>{$this->get_app()->get_config()->get_option('DEFAULT_PRINTER_DEVICE_ID')}</devid>
+			<timeout>{$this->get_app()->get_config()->get_option('DEFAULT_PRINTING_TIMEOUT')}</timeout>
+			<printjobid>{$this->get_app()->get_config()->get_option('DEFAULT_PRINT_JOB_ID')}</printjobid>
 		</parameter>
 	</s:Header>
 	<s:Body>
@@ -98,11 +101,7 @@ class PrintData extends AbstractAction {
 	</s:Body>
 </s:Envelope>
 XML;
-		$guzzle = new Client();
-		$options = array(
-				'body' => $xml
-		);
-		$result = $guzzle->post($this->get_printer_url(), $options);
+		$result = $this->get_data_connection()->query($this->get_app()->get_config()->get_option('WEBSERVICE_URL'), array('request_type' => HttpConnector::POST, 'body' => $xml));
 		return $result;
 	}
 	
@@ -172,6 +171,33 @@ XML;
 		}
 		return $this->data_widget;
 	}
+	
+	/**
+	 * 
+	 * @return string
+	 */
+	public function get_data_connection_alias() {
+		return $this->data_connection_alias;
+	}
+	
+	/**
+	 * 
+	 * @param string $value
+	 * @return \exface\EpsonIHubPrinterConnector\Actions\PrintData
+	 */
+	public function set_data_connection_alias($value) {
+		$this->data_connection_alias = $value;
+		return $this;
+	}
+	
+	/**
+	 * 
+	 * @return DataConnectionInterface
+	 */
+	protected function get_data_connection(){
+		return $this->get_workbench()->data()->get_data_connection($this->get_app()->get_config()->get_option('DATA_SOURCE_UID'), $this->get_data_connection_alias());
+	}
+	  
 }
 
 ?>

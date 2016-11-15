@@ -46,13 +46,13 @@ class PrintData extends AbstractAction {
 		}
 		
 		$text_table = new TextTable($rows);
-		$text_table->set_column_alignments($column_alignments);
-		$text_table->set_column_width_max($column_widths);
-		$text_table->set_column_width_auto(false);
-		$text_table->set_print_header(false);
-		$text_table->set_separator_column('');
-		$text_table->set_separator_crossing('');
-		$text_table->set_separator_row('');
+		$text_table->setColumnAlignments($column_alignments);
+		$text_table->setColumnWidthMax($column_widths);
+		$text_table->setColumnWidthAuto(false);
+		$text_table->setPrintHeader(false);
+		$text_table->setSeparatorColumn('');
+		$text_table->setSeparatorCrossing('');
+		$text_table->setSeparatorRow('');
 		
 		foreach (array_keys($rows) as $row){
 			$xml .= '<text>' . $text_table->print($row) . '</text>' ."\n";	
@@ -62,7 +62,7 @@ class PrintData extends AbstractAction {
 		$xml .= $this->build_xml_cut();
 		
 		try {
-			$result = $this->print($xml);
+			$this->print($xml);
 			$this->set_result_message('Document sent to printer');
 		} catch (DataConnectionError $e){
 			$this->set_result_message('Printing failed');

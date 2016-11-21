@@ -54,7 +54,7 @@
             "expression": "CONNECTOR",
             "name": "CONNECTOR",
             "hidden": false,
-            "data_type": "String",
+            "data_type": "Relation",
             "attribute_alias": "CONNECTOR"
         },
         {
@@ -95,7 +95,7 @@
             "UID": "0x11e6ab0cb4631a7ea730e4b318306b9a",
             "APP": "0x11e6aa6582221260a730e4b318306b9a",
             "LABEL": "Epson iHub default connection",
-            "CONNECTOR": "exface\\UrlDataConnector\\DataConnectors\\HttpConnector.php",
+            "CONNECTOR": "exface\/UrlDataConnector\/DataConnectors\/HttpConnector.php",
             "CONFIG": "{\"URL\":\"http:\/\/192.168.192.168\/\"}",
             "READONLY": "0",
             "ALIAS": "EPSON_IHUB_DEFAULT",

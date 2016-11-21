@@ -82,7 +82,7 @@
             "expression": "QUERYBUILDER",
             "name": "QUERYBUILDER",
             "hidden": false,
-            "data_type": "String",
+            "data_type": "Relation",
             "attribute_alias": "QUERYBUILDER"
         }
     ],
@@ -99,7 +99,7 @@
             "READONLY": "0",
             "LABEL": "Epson iHub POS printer",
             "ALIAS": "EPSON_IHUB_PRINTER",
-            "QUERYBUILDER": "exface\\UrlDataConnector\\QueryBuilders\\JsonUrlBuilder.php"
+            "QUERYBUILDER": "exface\/UrlDataConnector\/QueryBuilders\/JsonUrlBuilder.php"
         }
     ],
     "totals_rows": [],

@@ -8,6 +8,8 @@ use kabachello\phpTextTable\TextTable;
 use exface\Core\Interfaces\DataSources\DataConnectionInterface;
 use exface\UrlDataConnector\DataConnectors\HttpConnector;
 use exface\Core\Exceptions\DataConnectionError;
+use GuzzleHttp\Psr7\Request;
+use exface\UrlDataConnector\Psr7DataQuery;
 
 class PrintData extends AbstractAction {
 	private $document_object_relation_path = null;
@@ -83,6 +85,11 @@ class PrintData extends AbstractAction {
 		return '<cut/>';
 	}
 	
+	/**
+	 * 
+	 * @param string $xml
+	 * @return Psr7DataQuery
+	 */
 	protected function print($xml){
 		//print($xml);
 		$xml = <<<XML
@@ -101,8 +108,9 @@ class PrintData extends AbstractAction {
 	</s:Body>
 </s:Envelope>
 XML;
-		$result = $this->get_data_connection()->query($this->get_app()->get_config()->get_option('WEBSERVICE_URL'), array('request_type' => HttpConnector::POST, 'body' => $xml));
-		return $result;
+		// FIXME move to new DataQuery API!
+		$query = Psr7DataQuery::create_request('POST', $this->get_app()->get_config()->get_option('WEBSERVICE_URL'), array(), $xml);
+		return $this->get_data_connection()->query($query);
 	}
 	
 	protected function get_printer_url(){

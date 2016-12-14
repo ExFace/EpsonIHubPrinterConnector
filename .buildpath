@@ -5,4 +5,7 @@
 	<buildpathentry external="true" kind="lib" path="C:/wamp/www/exface/exface/vendor/exface/Core"/>
 	<buildpathentry external="true" kind="lib" path="C:/wamp/www/exface/exface/vendor/kabachello/phptexttable"/>
 	<buildpathentry external="true" kind="lib" path="C:/wamp/www/exface/exface/vendor/exface/UrlDataConnector"/>
+	<buildpathentry external="true" kind="lib" path="C:/wamp/www/exface/exface/vendor/guzzlehttp/guzzle/src"/>
+	<buildpathentry external="true" kind="lib" path="c:/wamp/www/exface/exface/vendor/guzzlehttp/psr7/src"/>
+	<buildpathentry external="true" kind="lib" path="c:/wamp/www/exface/exface/vendor/psr/http-message/src"/>
 </buildpath>

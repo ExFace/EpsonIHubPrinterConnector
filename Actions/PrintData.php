@@ -108,7 +108,6 @@ class PrintData extends AbstractAction {
 	</s:Body>
 </s:Envelope>
 XML;
-		// FIXME move to new DataQuery API!
 		$query = Psr7DataQuery::create_request('POST', $this->get_app()->get_config()->get_option('WEBSERVICE_URL'), array(), $xml);
 		return $this->get_data_connection()->query($query);
 	}

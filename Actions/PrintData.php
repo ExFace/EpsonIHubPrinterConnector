@@ -64,7 +64,7 @@ class PrintData extends AbstractAction {
 		$xml .= $this->build_xml_cut();
 		
 		try {
-			$this->print($xml);
+			$this->send_to_printer($xml);
 			$this->set_result_message('Document sent to printer');
 		} catch (DataConnectionError $e){
 			$this->set_result_message('Printing failed');
@@ -90,7 +90,7 @@ class PrintData extends AbstractAction {
 	 * @param string $xml
 	 * @return Psr7DataQuery
 	 */
-	protected function print($xml){
+	protected function send_to_printer($xml){
 		//print($xml);
 		$xml = <<<XML
 <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">

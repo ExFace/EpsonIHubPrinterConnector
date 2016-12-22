@@ -6,10 +6,8 @@ use exface\Core\Factories\WidgetFactory;
 use exface\Core\Widgets\Data;
 use kabachello\phpTextTable\TextTable;
 use exface\Core\Interfaces\DataSources\DataConnectionInterface;
-use exface\UrlDataConnector\DataConnectors\HttpConnector;
-use exface\Core\Exceptions\DataConnectionError;
-use GuzzleHttp\Psr7\Request;
 use exface\UrlDataConnector\Psr7DataQuery;
+use exface\Core\Interfaces\Exceptions\ErrorExceptionInterface;
 
 class PrintData extends AbstractAction {
 	private $document_object_relation_path = null;
@@ -66,7 +64,7 @@ class PrintData extends AbstractAction {
 		try {
 			$this->send_to_printer($xml);
 			$this->set_result_message('Document sent to printer');
-		} catch (DataConnectionError $e){
+		} catch (ErrorExceptionInterface $e){
 			$this->set_result_message('Printing failed');
 		}
 			

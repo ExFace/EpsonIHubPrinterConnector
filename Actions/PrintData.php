@@ -23,7 +23,7 @@ class PrintData extends AbstractAction {
 		$document_data = $this->get_data_widget()->prepare_data_sheet_to_read(DataSheetFactory::create_from_object($this->get_document_object()));
 		if ($this->get_document_object_relation_path()){
 			$rev_path = $this->get_meta_object()->get_relation($this->get_document_object_relation_path())->get_reversed_relation()->get_alias();
-			$document_data->add_filter_from_string($rev_path, implode(',', array_unique($this->get_input_data_sheet()->get_uid_column()->get_values(false))));
+			$document_data->add_filter_from_string($rev_path, implode(EXF_LIST_SEPARATOR, array_unique($this->get_input_data_sheet()->get_uid_column()->get_values(false))));
 		} else {
 			// TODO
 		}

@@ -17,6 +17,7 @@ class PrintData extends AbstractAction {
 	private $footer_text = null;
 	private $footer_barcode = null;
 	private $data_connection_alias = null;
+	private $direct_print = true;
 	
 	protected function perform(){
 		$xml = '<text>' . $this->get_header_text() ."\n" . '</text>'  ."\n";
@@ -61,14 +62,33 @@ class PrintData extends AbstractAction {
 		$xml .= '<text>' . "\n" . $this->get_footer_text() . "\n" . '</text>'  ."\n";
 		$xml .= $this->build_xml_cut();
 		
-		try {
-			$this->send_to_printer($xml);
-			$this->set_result_message('Document sent to printer');
-		} catch (ErrorExceptionInterface $e){
-			$this->set_result_message('Printing failed');
+		if ($this->get_direct_print()){
+			// TODO sre
+			$pool_ds = DataSheetFactory::create_from_object_id_or_alias('exface.EpsonIHubPrintConnector.PRINT_JOB');
+			$pool_ds->get_columns()->add_from_expression('print_job_id');
+			
+			$pool_ds->data_create(false, $this->get_transaction());
+		} else {
+			try {
+				$this->send_to_printer($xml);
+				$this->set_result_message('Document sent to printer');
+			} catch (ErrorExceptionInterface $e){
+				$this->set_result_message('Printing failed');
+			}
 		}
 			
 	}
+	
+	public function get_direct_print() {
+		return $this->direct_print;
+	}
+	
+	public function set_direct_print($value) {
+		$this->direct_print = $value ? true : false;
+		return $this;
+	}
+	
+	  
 	
 	protected function get_document_object(){
 		if ($this->get_document_object_relation_path()){

@@ -1,0 +1,8 @@
+{
+	"ACTION.PRINTDATA.NAME": "Receipt printing",
+	"PLEASE_SELECT_ATLEAST_ONE_ROW": "Please select at least one row",
+	"MISSING_DEFINITION_RECEIPT_PRINTING": "no data definition (template/columns)",
+	"RECEIPT_PRINTING_DOCUMENT_SENT": "Document sent to printer",
+	"RECEIPT_PRINTING_FAILED": "Printing failed",
+	"RECEIPT_PRINTING_DOCUMENT_SENT_TO_SPOOL": "Document has been sent to printer spool"
+}

@@ -1,0 +1,8 @@
+{
+	"ACTION.PRINTDATA.NAME": "Bondruck",
+	"PLEASE_SELECT_ATLEAST_ONE_ROW": "Bitte wählen Sie mindestens eine Zeile aus",
+	"MISSING_DEFINITION_RECEIPT_PRINTING": "Keine Datendefinition (Template/Columns)",
+	"RECEIPT_PRINTING_DOCUMENT_SENT": "Dokument wurde an den Bondrucker gesendet",
+	"RECEIPT_PRINTING_FAILED": "Bondruck fehlgeschlagen",
+	"RECEIPT_PRINTING_DOCUMENT_SENT_TO_SPOOL": "Document zum Drucken bereitgestellt"
+}

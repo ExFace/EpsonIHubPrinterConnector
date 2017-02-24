@@ -18,6 +18,10 @@ class EpsonIHubPrinterConnectorApp extends \exface\Core\CommonLogic\AbstractApp 
 		$schema_installer = new SqlSchemaInstaller($this->get_name_resolver());
 		$schema_installer->set_data_connection($this->get_workbench()->model()->get_model_loader()->get_data_connection());
 		$installer->add_installer($schema_installer);
+		
+		// TODO add a custom installer like in the MODx CMS connector, that will add the following lines to .htaccess
+		// # Epson iHub printer server
+		// RewriteRule ^iHubPrintServer/([^/]+)/$ exface/exface.php?exftpl=exface.JEasyUiTemplate&action=exface.EpsonIHubPrinterConnector.PrintSpoolData&printer=$1 [L]
 			
 		return $installer;
 	}

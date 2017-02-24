@@ -1,6 +1,5 @@
 <?php namespace exface\EpsonIHubPrinterConnector\Actions;
 
-use alexa\RMS\Core\AppUserException;
 use exface\Core\CommonLogic\AbstractAction;
 use exface\Core\Factories\DataSheetFactory;
 use exface\Core\Factories\WidgetFactory;
@@ -9,6 +8,7 @@ use exface\Core\Interfaces\Exceptions\ErrorExceptionInterface;
 use exface\Core\Widgets\Data;
 use exface\UrlDataConnector\Psr7DataQuery;
 use kabachello\phpTextTable\TextTable;
+use exface\Core\Exceptions\Actions\ActionRuntimeError;
 
 class PrintData extends AbstractAction {
 
@@ -28,15 +28,9 @@ class PrintData extends AbstractAction {
         try {
             $this->performPrint();
         }
-        catch(AppUserException $auex) {
-            $message = $this->get_app()->get_translator()->translate($auex->getReadableMessage());
-            $this->set_result_message($message);
-            //throw new \Exception($auex->getMessage());
-        }
-        catch (\Exception $ex) {
+        catch (\Throwable $ex) {
             $this->set_result_message($ex->getMessage());
-
-            throw new \Exception($ex->getMessage());
+            throw new ActionRuntimeError($this, 'Printing failed!', null, $ex);
         }
     }
 
@@ -72,7 +66,7 @@ class PrintData extends AbstractAction {
             $xml = $this->buildPrinterXmlByTemplate($document_data);
         }
         else {
-            AppUserException::triggerError("MISSING_DEFINITION_RECEIPT_PRINTING");
+        	throw new ActionRuntimeError($this, $this->asTranslated('MISSING_DEFINITION_RECEIPT_PRINTING'));
         }
 
         //direct print or spooling
@@ -94,7 +88,7 @@ class PrintData extends AbstractAction {
     {
         $rows = $this->get_input_data_sheet()->get_rows();
         if( empty($rows) ) {
-            AppUserException::triggerError("PLEASE_SELECT_ATLEAST_ONE_ROW");
+        	throw new ActionRuntimeError($this, $this->asTranslated('PLEASE_SELECT_ATLEAST_ONE_ROW'));
         }
     }
 	

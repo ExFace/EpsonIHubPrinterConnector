@@ -1,30 +1,35 @@
 <?php namespace exface\EpsonIHubPrinterConnector\Actions;
 
-use alexa\RMS\Core\AppUserException;
 use exface\Core\CommonLogic\AbstractAction;
 use exface\Core\Factories\DataSheetFactory;
 
 class PrintSpoolData extends AbstractAction
 {
     const STATE_PRINT_JOB_CREATED = 10;
-    const STATE_PRINT_JOB_PRINTED = 90;
+    const STATE_PRINT_JOB_PRINTED = 99;
 
     private $printer = null;
+    private $debug = false;
 
     protected function perform()
     {
         try {
             $printerResponse = $this->performPrint();
             echo $printerResponse;
-        } catch (AppUserException $auex) {
-            $message = $this->get_app()->get_translator()->translate($auex->getReadableMessage());
-            $this->set_result_message($message);
-            throw new \Exception($auex->getMessage());
-        } catch (\Exception $ex) {
+        } catch (\Throwable $ex) {
             $this->set_result_message($ex->getMessage());
-
-            throw new \Exception($ex->getMessage());
+            // Since we are talking to a printer here, there is no need to do any standard exception handling - it would
+            // only irretate the printer. For debug purposes we can always add the &debug=1 URL parameter.
+            if ($this->isInDebugMode()){
+            	throw $ex;
+            } else {
+            	// TODO Output some XML that will let the printer know, something went wrong.
+            }
         }
+    }
+    
+    protected function isInDebugMode(){
+    	return $this->get_workbench()->get_request_param('debug') ? true : false;
     }
 
     protected function performPrint()

@@ -1,5 +1,5 @@
 {
-    "name": "ExFace/EpsonIHubPrinterConnector",
+    "name": "exface/EpsonIHubPrinterConnector",
     "description": "Enables printouts via the webservice API of Epsons new iHub POS printers",
     "type": "library",
     "license": "GPL-3.0+",

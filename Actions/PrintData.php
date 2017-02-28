@@ -23,6 +23,11 @@ class PrintData extends AbstractAction {
 	private $direct_print = true;
     private $print_template = null;
     private $device_id = null;
+    
+    protected function init(){
+    	parent::init();
+    	$this->set_input_rows_min(1);
+    }
 
     protected function perform()
     {

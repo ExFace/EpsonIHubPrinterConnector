@@ -38,23 +38,26 @@ class PrintSpoolData extends AbstractAction
 
         $document_data = $this->preparePrintJobDataSheet();
         $document_data->add_filter_from_string("state_id", self::STATE_PRINT_JOB_CREATED);
-        $document_data->add_filter_from_string("device_id", $this->printerId);
+        $document_data->add_filter_from_string("printer_name", $this->printerId);
 
         $document_data->data_read();
 
         list($xmlPosPrint, $printedJobs) = $this->buildXmlPosPrint($document_data);
+        
+        // FIXME add the device id to each job or split jobs by device id
+        $deviceId = $document_data->get_columns()->get_by_expression('device_id')->get_cell_value(0);
 
         $document_data->remove_rows();
         $document_data->add_rows($printedJobs);
 
         if(!empty($xmlPosPrint)) {
             $document_data->data_update(); //mark records as printed
-            return $this->getPrinterXML($xmlPosPrint);
+            return $this->getPrinterXML($xmlPosPrint, $deviceId);
         }
         return "";
     }
 
-    protected function getPrinterXML($xmlPosPrints) {
+    protected function getPrinterXML($xmlPosPrints, $deviceId) {
 
         $xml = sprintf('<?xml version="1.0" encoding="UTF-8"?>
                 <PrintRequestInfo>
@@ -70,7 +73,7 @@ class PrintSpoolData extends AbstractAction
                       </PrintData>
                    </ePOSPrint>
                 </PrintRequestInfo>'
-            , $this->printerId
+            , $deviceId
             , $this->get_app()->get_config()->get_option('DEFAULT_PRINTING_TIMEOUT')
             , $xmlPosPrints);
         return $xml;
@@ -81,7 +84,7 @@ class PrintSpoolData extends AbstractAction
             $this->printerId = trim($_REQUEST["printer_id"]);
         }
         else {
-            $this->printerId = $this->get_app()->get_config()->get_option('DEFAULT_PRINTER_DEVICE_ID');
+            $this->printerId = $this->get_workbench()->get_app('exface.EpsonIHubPrinterConnector')->get_config()->get_option('DEFAULT_PRINTER_NAME');
         }
     }
 

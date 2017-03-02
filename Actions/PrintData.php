@@ -20,9 +20,10 @@ class PrintData extends AbstractAction {
 	private $footer_text = null;
 	private $footer_barcode = null;
 	private $data_connection_alias = null;
-	private $direct_print = true;
+	private $print_to_spool = null;
     private $print_template = null;
     private $device_id = null;
+    private $printer_name = null;
     
     protected function init(){
     	parent::init();
@@ -77,7 +78,7 @@ class PrintData extends AbstractAction {
         }
 
         //direct print or spooling
-		if(!$this->get_direct_print()){
+		if($this->get_print_to_spool()){
             $this->sendToSpool($xml);
             $this->set_result_message($this->asTranslated("RECEIPT_PRINTING_DOCUMENT_SENT_TO_SPOOL"));
 		} else {
@@ -99,12 +100,15 @@ class PrintData extends AbstractAction {
         }
     }
 	
-	public function get_direct_print() {
-		return $this->direct_print;
+	public function get_print_to_spool() {
+		if (is_null($this->print_to_spool)){
+			$this->print_to_spool = $this->get_printer_config()->get_option('DEFAULT_USE_PRINT_SPOOL') ? true : false;
+		}
+		return $this->print_to_spool;
 	}
 	
-	public function set_direct_print($value) {
-		$this->direct_print = $value ? true : false;
+	public function set_print_to_spool($value) {
+		$this->print_to_spool = $value ? true : false;
 		return $this;
 	}
 	
@@ -123,23 +127,6 @@ class PrintData extends AbstractAction {
 	}
 
 	protected function getPrinterXML($xmlPosPrint) {
-
-	    /* attached later by spool!
-	     * $xml = sprintf('<?xml version="1.0" encoding="UTF-8"?>
-                <PrintRequestInfo>
-                   <ePOSPrint>
-                      <Parameter>
-                         <devid>%s</devid>
-                         <timeout>10000</timeout>
-                      </Parameter>
-                      <PrintData>
-                         <epos-print xmlns="http://www.epson-pos.com/schemas/2011/03/epos-print">
-                            %s
-                         </epos-print>
-                      </PrintData>
-                   </ePOSPrint>
-                </PrintRequestInfo>',  $this->get_device_id(), $xmlPosPrint);
-	    return $xml;*/
         return $xmlPosPrint;
     }
 	
@@ -149,7 +136,6 @@ class PrintData extends AbstractAction {
 	 * @return Psr7DataQuery
 	 */
 	protected function send_to_printer($xml){
-		//print($xml);
 		$xml = <<<XML
 <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
 	<s:Header>
@@ -168,10 +154,6 @@ class PrintData extends AbstractAction {
 XML;
 		$query = Psr7DataQuery::create_request('POST', $this->get_printer_config()->get_option('WEBSERVICE_URL'), array(), $xml);
 		return $this->get_data_connection()->query($query);
-	}
-	
-	protected function get_printer_url(){
-		return "http://10.193.1.50/cgi-bin/epos/service.cgi";
 	}
 	
 	public function set_columns($value) {
@@ -202,19 +184,57 @@ XML;
     {
         $this->print_template = $print_template;
     }
-
-    public function get_device_id()
-    {
-        if( empty($this->device_id) ) {
-            return $this->get_printer_config()->get_option('DEFAULT_PRINTER_DEVICE_ID');
-        }
-        return $this->device_id;
-    }
     
     public function get_printer_config(){
     	return $this->get_workbench()->get_app('exface.EpsonIHubPrinterConnector')->get_config();
     }
-
+    
+    public function get_printer_name() {
+    	if (is_null($this->printer_name)){
+    		$this->printer_name = $this->get_printer_config()->get_option('DEFAULT_PRINTER_NAME');
+    	}
+    	return $this->printer_name;
+    }
+    
+    /**
+     * Sets the name of the iHub unit to use in this action. This is what is used in DirectPrint URLs to distinguish printers.
+     *
+     * Every active printer in the network should have a unique name to be able to fetch it's print jobs from the print server.
+     * This option is only important for printers operating via DirectPrint (pulling print jobs from the server).
+     *
+     * @uxon-property printer_name
+     * @uxon-type string
+     *
+     * @param string $value
+     * @return \exface\EpsonIHubPrinterConnector\Actions\PrintData
+     */
+    public function set_printer_name($value) {
+    	$this->printer_name = $value;
+    	return $this;
+    }
+	
+    public function get_device_id()
+    {
+    	if( empty($this->device_id) ) {
+    		return $this->get_printer_config()->get_option('DEFAULT_PRINTER_DEVICE_ID');
+    	}
+    	return $this->device_id;
+    }
+    
+    /**
+     * Sets the device_id used to address external printers by the iHub. It's local_printer (= the iHub itself) by default.
+     *
+     * Some iHub units may have external printers connected, that can be addressed via their device id. While the "printer_name"
+     * property defines, which iHub unit the print job is for, the "device_id" tells this unit, which printer to use. The iHub
+     * printer itself has the built-in device id "local_printer" (used by default). Device ids of external printers can be
+     * found in the webconfig of the iHub unit, they are connected to.
+     *
+     * @uxon-property device_id
+     * @uxon-type string
+     *
+     * @param string $value
+     * @return \exface\EpsonIHubPrinterConnector\Actions\PrintData
+     */
     public function set_device_id($device_id)
     {
         $this->device_id = $device_id;
@@ -401,13 +421,15 @@ XML;
     protected function sendToSpool($xml)
     {
         $pool_ds = DataSheetFactory::create_from_object_id_or_alias($this->get_workbench(), 'exface.EpsonIHubPrinterConnector.PRINT_JOB');
+        $pool_ds->get_columns()->add_from_expression('printer_name');
         $pool_ds->get_columns()->add_from_expression('device_id');
         $pool_ds->get_columns()->add_from_expression('content');
         $pool_ds->get_columns()->add_from_expression('state_id');
 
-        $pool_ds->add_row(array('device_id' => $this->get_device_id(), "content" => $this->getPrinterXML($xml), "state_id" => PrintSpoolData::STATE_PRINT_JOB_CREATED));
+        $pool_ds->add_row(array('printer_name' => $this->get_printer_name(), 'device_id' => $this->get_device_id(), "content" => $this->getPrinterXML($xml), "state_id" => PrintSpoolData::STATE_PRINT_JOB_CREATED));
 
         $pool_ds->data_create(false);
     }
+      
 }
 ?>

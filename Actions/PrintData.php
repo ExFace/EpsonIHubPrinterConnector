@@ -38,6 +38,7 @@ class PrintData extends AbstractAction {
             $this->set_result_message($ex->getMessage());
             throw new ActionRuntimeError($this, 'Printing failed!', null, $ex);
         }
+        $this->set_result('');
     }
 
     private function asTranslated($message) {
@@ -153,9 +154,9 @@ class PrintData extends AbstractAction {
 <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
 	<s:Header>
 		<parameter xmlns="http://www.epson-pos.com/schemas/2011/03/epos-print">
-			<devid>{$this->get_app()->get_config()->get_option('DEFAULT_PRINTER_DEVICE_ID')}</devid>
-			<timeout>{$this->get_app()->get_config()->get_option('DEFAULT_PRINTING_TIMEOUT')}</timeout>
-			<printjobid>{$this->get_app()->get_config()->get_option('DEFAULT_PRINT_JOB_ID')}</printjobid>
+			<devid>{$this->get_printer_config()->get_option('DEFAULT_PRINTER_DEVICE_ID')}</devid>
+			<timeout>{$this->get_printer_config()->get_option('DEFAULT_PRINTING_TIMEOUT')}</timeout>
+			<printjobid>{$this->get_printer_config()->get_option('DEFAULT_PRINT_JOB_ID')}</printjobid>
 		</parameter>
 	</s:Header>
 	<s:Body>
@@ -165,7 +166,7 @@ class PrintData extends AbstractAction {
 	</s:Body>
 </s:Envelope>
 XML;
-		$query = Psr7DataQuery::create_request('POST', $this->get_app()->get_config()->get_option('WEBSERVICE_URL'), array(), $xml);
+		$query = Psr7DataQuery::create_request('POST', $this->get_printer_config()->get_option('WEBSERVICE_URL'), array(), $xml);
 		return $this->get_data_connection()->query($query);
 	}
 	
@@ -205,9 +206,13 @@ XML;
     public function get_device_id()
     {
         if( empty($this->device_id) ) {
-            return $this->get_app()->get_config()->get_option('DEFAULT_PRINTER_DEVICE_ID');
+            return $this->get_printer_config()->get_option('DEFAULT_PRINTER_DEVICE_ID');
         }
         return $this->device_id;
+    }
+    
+    public function get_printer_config(){
+    	return $this->get_workbench()->get_app('exface.EpsonIHubPrinterConnector')->get_config();
     }
 
     public function set_device_id($device_id)
@@ -287,7 +292,7 @@ XML;
 	 * @return DataConnectionInterface
 	 */
 	protected function get_data_connection(){
-		return $this->get_workbench()->data()->get_data_connection($this->get_app()->get_config()->get_option('DATA_SOURCE_UID'), $this->get_data_connection_alias());
+		return $this->get_workbench()->data()->get_data_connection($this->get_printer_config()->get_option('DATA_SOURCE_UID'), $this->get_data_connection_alias());
 	}
 
     /**

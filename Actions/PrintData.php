@@ -44,7 +44,7 @@ class PrintData extends AbstractAction {
 
     private function asTranslated($message) {
 
-        return $this->get_app()->get_translator()->translate($message);
+        return $this->get_workbench()->get_app('exface.EpsonIHubPrinterConnector')->get_translator()->translate($message);
     }
 
 	protected function performPrint(){

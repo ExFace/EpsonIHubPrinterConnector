@@ -19,6 +19,7 @@ class PrintData extends AbstractAction {
 	private $header_text = null;
 	private $footer_text = null;
 	private $footer_barcode = null;
+	private $footer_barcode_attribute_alias = null;
 	private $data_connection_alias = null;
 	private $print_to_spool = null;
     private $print_template = null;
@@ -28,6 +29,7 @@ class PrintData extends AbstractAction {
     protected function init(){
     	parent::init();
     	$this->set_input_rows_min(1);
+    	$this->set_icon_name('print');
     }
 
     protected function perform()
@@ -65,6 +67,10 @@ class PrintData extends AbstractAction {
         }
 
         $document_data->data_read();
+        
+        if ($this->get_footer_barcode_attribute_alias() && $document_data->get_columns()->get_by_expression($this->get_footer_barcode_attribute_alias())){
+        	$this->set_footer_barcode($document_data->get_cell_value($this->get_footer_barcode_attribute_alias(), 0));
+        }
 
         //print by columns or by template
         if( $this->isPrintDataDefinedAsColumns() ) {
@@ -76,6 +82,8 @@ class PrintData extends AbstractAction {
         else {
         	throw new ActionRuntimeError($this, $this->asTranslated('MISSING_DEFINITION_RECEIPT_PRINTING'));
         }
+        
+        $xml .= $this->build_xml_footer();
 
         //direct print or spooling
 		if($this->get_print_to_spool()){
@@ -408,11 +416,21 @@ XML;
 
         foreach (array_keys($rows) as $row) {
             $xml .= '<text>' . $text_table->print($row) . '</text>' . "\n";
-        }
-
-        $xml .= '<feed line="1"/><text align="center"/><text>' . "\n" . $this->get_footer_text() . "\n" . '</text>' . "\n";
-        $xml .= $this->build_xml_cut();
+        }        
+        
         return $xml;
+    }
+    
+    protected function build_xml_footer(){
+    	$xml = '';
+    	if ($this->get_footer_barcode()){
+    		$xml .= '<barcode type="ean13" hri="none" font="font_a" width="2" height="32">' . "\n" . $this->get_footer_barcode() . '</barcode>' . "\n";
+    	}
+    	if ($this->get_footer_text()){
+    		$xml .= '<feed line="1"/><text align="center"/><text>' . "\n" . $this->get_footer_text() . "\n" . '</text>' . "\n";
+    	}
+    	$xml .= $this->build_xml_cut();
+    	return $xml;
     }
 
     /**
@@ -430,6 +448,15 @@ XML;
 
         $pool_ds->data_create(false);
     }
+    
+    public function get_footer_barcode_attribute_alias() {
+    	return $this->footer_barcode_attribute_alias;
+    }
+    
+    public function set_footer_barcode_attribute_alias($value) {
+    	$this->footer_barcode_attribute_alias = $value;
+    	return $this;
+    }  
       
 }
 ?>

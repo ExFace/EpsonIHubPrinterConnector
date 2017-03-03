@@ -116,7 +116,7 @@ class PrintData extends AbstractAction {
 	}
 	
 	public function set_print_to_spool($value) {
-		$this->print_to_spool = $value ? true : false;
+		$this->print_to_spool = filter_var($value, FILTER_VALIDATE_BOOLEAN);
 		return $this;
 	}
 	

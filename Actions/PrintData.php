@@ -71,13 +71,16 @@ class PrintData extends AbstractAction {
         if ($this->get_footer_barcode_attribute_alias() && $document_data->get_columns()->get_by_expression($this->get_footer_barcode_attribute_alias())){
         	$this->set_footer_barcode($document_data->get_cell_value($this->get_footer_barcode_attribute_alias(), 0));
         }
-
-        //print by columns or by template
-        if( $this->isPrintDataDefinedAsColumns() ) {
-            $xml = $this->buildPrinterXmlByColumns($document_data);
-        }
-        elseif ($this->isPrintDataDefinedAsTemplate()) {
-            $xml = $this->buildPrinterXmlByTemplate($document_data);
+        
+        // Print header
+        $xml = $this->buildPrinterXmlLogo() . '<text>' . $this->get_header_text() . "\n" . '</text>' . "\n";
+        
+        // Print content
+        if ($this->isPrintDataDefinedAsTemplate()) {
+            $xml .= $this->buildPrinterXmlByTemplate($document_data);
+        } 
+        elseif( $this->isPrintDataDefinedAsColumns() ) {
+            $xml .= $this->buildPrinterXmlByColumns($document_data);
         }
         else {
         	throw new ActionRuntimeError($this, $this->asTranslated('MISSING_DEFINITION_RECEIPT_PRINTING'));
@@ -359,7 +362,7 @@ XML;
         foreach ($document_data->get_rows() as $row) {
             $tmp = $template;
             foreach ($row as $key => $value) {
-                $tmp = str_replace("{#" . strtoupper($key) . "#}", $value, $tmp);
+                $tmp = str_replace("[#" . strtoupper($key) . "#]", $value, $tmp);
             }
             //TODO replace missing tags (regex)
             $xmlPosPrint .= $tmp;
@@ -387,8 +390,6 @@ XML;
      */
     protected function buildPrinterXmlByColumns(DataSheetInterface $document_data)
     {
-        $xml = $this->buildPrinterXmlLogo() . '<text>' . $this->get_header_text() . "\n" . '</text>' . "\n";
-
         $rows = array();
         $column_widths = array();
         $column_alignments = array();

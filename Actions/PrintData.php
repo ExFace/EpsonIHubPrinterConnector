@@ -119,7 +119,7 @@ class PrintData extends AbstractAction {
 	}
 	
 	public function set_print_to_spool($value) {
-		$this->print_to_spool = filter_var($value, FILTER_VALIDATE_BOOLEAN);
+		$this->print_to_spool = \exface\Core\DataTypes\BooleanDataType::parse($value);
 		return $this;
 	}
 	

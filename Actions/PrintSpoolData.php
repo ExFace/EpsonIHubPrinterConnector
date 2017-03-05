@@ -80,8 +80,8 @@ class PrintSpoolData extends AbstractAction
     }
 
     protected function setPrinter() {
-        if( isset($_REQUEST["printer_id"])) {
-            $this->printerId = trim($_REQUEST["printer_id"]);
+        if( isset($_REQUEST["printer"])) {
+            $this->printerId = trim($_REQUEST["printer"]);
         }
         else {
             $this->printerId = $this->get_workbench()->get_app('exface.EpsonIHubPrinterConnector')->get_config()->get_option('DEFAULT_PRINTER_NAME');

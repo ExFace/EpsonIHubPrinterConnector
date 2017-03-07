@@ -20,6 +20,7 @@ class PrintData extends AbstractAction {
 	private $footer_text = null;
 	private $footer_barcode = null;
 	private $footer_barcode_attribute_alias = null;
+	private $footer_barcode_type = 'code39';
 	private $data_connection_alias = null;
 	private $print_to_spool = null;
     private $print_template = null;
@@ -425,7 +426,7 @@ XML;
     protected function build_xml_footer(){
     	$xml = '';
     	if ($this->get_footer_barcode()){
-    		$xml .= '<barcode type="ean13" hri="none" font="font_a" width="2" height="32">' . "\n" . $this->get_footer_barcode() . '</barcode>' . "\n";
+    		$xml .= '<barcode type="' . $this->get_footer_barcode_type() . '" hri="none" font="font_a" width="2" height="32">' . "\n" . $this->get_footer_barcode() . '</barcode>' . "\n";
     	}
     	if ($this->get_footer_text()){
     		$xml .= '<feed line="1"/><text align="center"/><text>' . "\n" . $this->get_footer_text() . "\n" . '</text>' . "\n";
@@ -456,6 +457,15 @@ XML;
     
     public function set_footer_barcode_attribute_alias($value) {
     	$this->footer_barcode_attribute_alias = $value;
+    	return $this;
+    }  
+    
+    public function get_footer_barcode_type() {
+    	return $this->footer_barcode_type;
+    }
+    
+    public function set_footer_barcode_type($value) {
+    	$this->footer_barcode_type = $value;
     	return $this;
     }  
       

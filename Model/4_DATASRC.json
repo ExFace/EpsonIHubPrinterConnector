@@ -44,11 +44,11 @@
             "attribute_alias": "APP"
         },
         {
-            "expression": "CONNECTION",
-            "name": "CONNECTION",
+            "expression": "DEFAULT_CONNECTION",
+            "name": "DEFAULT_CONNECTION",
             "hidden": false,
             "data_type": "Relation",
-            "attribute_alias": "CONNECTION"
+            "attribute_alias": "DEFAULT_CONNECTION"
         },
         {
             "expression": "BASE_OBJECT",
@@ -89,12 +89,12 @@
     "rows": [
         {
             "CREATED_ON": "2016-11-15 08:37:56",
-            "MODIFIED_ON": "2016-11-15 08:40:44",
+            "MODIFIED_ON": "2017-04-18 16:51:35",
             "CREATED_BY_USER": "0x31000000000000000000000000000000",
             "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
             "UID": "0x11e6ab0ecce8679ca730e4b318306b9a",
             "APP": "0x11e6aa6582221260a730e4b318306b9a",
-            "CONNECTION": "0x11e6ab0cb4631a7ea730e4b318306b9a",
+            "DEFAULT_CONNECTION": "0x11e6ab0cb4631a7ea730e4b318306b9a",
             "BASE_OBJECT": "",
             "READONLY": "0",
             "LABEL": "Epson iHub POS printer",

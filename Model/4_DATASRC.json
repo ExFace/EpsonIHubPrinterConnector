@@ -51,6 +51,13 @@
             "attribute_alias": "DEFAULT_CONNECTION"
         },
         {
+            "expression": "DEFAULT_QUERY_BUILDER",
+            "name": "DEFAULT_QUERY_BUILDER",
+            "hidden": false,
+            "data_type": "Relation",
+            "attribute_alias": "DEFAULT_QUERY_BUILDER"
+        },
+        {
             "expression": "BASE_OBJECT",
             "name": "BASE_OBJECT",
             "hidden": false,
@@ -77,13 +84,6 @@
             "hidden": false,
             "data_type": "String",
             "attribute_alias": "ALIAS"
-        },
-        {
-            "expression": "QUERYBUILDER",
-            "name": "QUERYBUILDER",
-            "hidden": false,
-            "data_type": "Relation",
-            "attribute_alias": "QUERYBUILDER"
         }
     ],
     "rows": [
@@ -95,11 +95,11 @@
             "UID": "0x11e6ab0ecce8679ca730e4b318306b9a",
             "APP": "0x11e6aa6582221260a730e4b318306b9a",
             "DEFAULT_CONNECTION": "0x11e6ab0cb4631a7ea730e4b318306b9a",
+            "DEFAULT_QUERY_BUILDER": "exface\/UrlDataConnector\/QueryBuilders\/JsonUrlBuilder.php",
             "BASE_OBJECT": "",
             "READONLY": "0",
             "LABEL": "Epson iHub POS printer",
-            "ALIAS": "EPSON_IHUB_PRINTER",
-            "QUERYBUILDER": "exface\/UrlDataConnector\/QueryBuilders\/JsonUrlBuilder.php"
+            "ALIAS": "EPSON_IHUB_PRINTER"
         }
     ],
     "totals_rows": [],

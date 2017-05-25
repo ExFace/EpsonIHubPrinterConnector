@@ -1,5 +1,4 @@
 <?php
-
 namespace exface\EpsonIHubPrinterConnector;
 
 use exface\Core\Interfaces\InstallerInterface;
@@ -22,10 +21,7 @@ class EpsonIHubPrinterConnectorApp extends \exface\Core\CommonLogic\AbstractApp
         $installer = parent::getInstaller($injected_installer);
         
         $schema_installer = new SqlSchemaInstaller($this->getNameResolver());
-        $schema_installer->setDataConnection($this->getWorkbench()
-            ->model()
-            ->getModelLoader()
-            ->getDataConnection());
+        $schema_installer->setDataConnection($this->getWorkbench()->model()->getModelLoader()->getDataConnection());
         $installer->addInstaller($schema_installer);
         
         // TODO add a custom installer like in the MODx CMS connector, that will add the following lines to .htaccess

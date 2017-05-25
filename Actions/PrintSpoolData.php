@@ -1,5 +1,4 @@
 <?php
-
 namespace exface\EpsonIHubPrinterConnector\Actions;
 
 use exface\Core\CommonLogic\AbstractAction;
@@ -51,9 +50,7 @@ class PrintSpoolData extends AbstractAction
         list ($xmlPosPrint, $printedJobs) = $this->buildXmlPosPrint($document_data);
         
         // FIXME add the device id to each job or split jobs by device id
-        $deviceId = $document_data->getColumns()
-            ->getByExpression('device_id')
-            ->getCellValue(0);
+        $deviceId = $document_data->getColumns()->getByExpression('device_id')->getCellValue(0);
         
         $document_data->removeRows();
         $document_data->addRows($printedJobs);
@@ -80,9 +77,7 @@ class PrintSpoolData extends AbstractAction
                          </epos-print>
                       </PrintData>
                    </ePOSPrint>
-                </PrintRequestInfo>', $deviceId, $this->getApp()
-            ->getConfig()
-            ->getOption('DEFAULT_PRINTING_TIMEOUT'), $xmlPosPrints);
+                </PrintRequestInfo>', $deviceId, $this->getApp()->getConfig()->getOption('DEFAULT_PRINTING_TIMEOUT'), $xmlPosPrints);
         return $xml;
     }
 
@@ -91,10 +86,7 @@ class PrintSpoolData extends AbstractAction
         if (isset($_REQUEST["printer"])) {
             $this->printerId = trim($_REQUEST["printer"]);
         } else {
-            $this->printerId = $this->getWorkbench()
-                ->getApp('exface.EpsonIHubPrinterConnector')
-                ->getConfig()
-                ->getOption('DEFAULT_PRINTER_NAME');
+            $this->printerId = $this->getWorkbench()->getApp('exface.EpsonIHubPrinterConnector')->getConfig()->getOption('DEFAULT_PRINTER_NAME');
         }
     }
 
@@ -114,9 +106,7 @@ class PrintSpoolData extends AbstractAction
     protected function preparePrintJobDataSheet()
     {
         /** @var \exface\Core\CommonLogic\Model\Object $printJobMetaObject */
-        $printJobMetaObject = $this->getWorkbench()
-            ->model()
-            ->getObject($this->getPrintJobAlias());
+        $printJobMetaObject = $this->getWorkbench()->model()->getObject($this->getPrintJobAlias());
         
         $document_data = DataSheetFactory::createFromObjectIdOrAlias($this->getWorkbench(), $printJobMetaObject);
         foreach ($printJobMetaObject->getAttributes() as $attr) {

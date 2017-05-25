@@ -1,5 +1,4 @@
 <?php
-
 namespace exface\EpsonIHubPrinterConnector\Actions;
 
 use exface\Core\CommonLogic\AbstractAction;
@@ -62,10 +61,7 @@ class PrintData extends AbstractAction
 
     private function asTranslated($message)
     {
-        return $this->getWorkbench()
-            ->getApp('exface.EpsonIHubPrinterConnector')
-            ->getTranslator()
-            ->translate($message);
+        return $this->getWorkbench()->getApp('exface.EpsonIHubPrinterConnector')->getTranslator()->translate($message);
     }
 
     protected function performPrint()
@@ -77,17 +73,10 @@ class PrintData extends AbstractAction
         // print main object or print children
         $document_data = $this->prepareDataSheet($documentObject);
         if ($this->getDocumentObjectRelationPath()) { // print dependent objects
-            $rev_path = $this->getMetaObject()
-                ->getRelation($this->getDocumentObjectRelationPath())
-                ->getReversedRelation()
-                ->getAlias();
-            $document_data->addFilterFromString($rev_path, implode(EXF_LIST_SEPARATOR, array_unique($this->getInputDataSheet()
-                ->getUidColumn()
-                ->getValues(false))));
+            $rev_path = $this->getMetaObject()->getRelation($this->getDocumentObjectRelationPath())->getReversedRelation()->getAlias();
+            $document_data->addFilterFromString($rev_path, implode(EXF_LIST_SEPARATOR, array_unique($this->getInputDataSheet()->getUidColumn()->getValues(false))));
         } else { // print main objects
-            $uuidList = $this->getInputDataSheet()
-                ->getUidColumn()
-                ->getValues(false);
+            $uuidList = $this->getInputDataSheet()->getUidColumn()->getValues(false);
             $document_data->addFilterFromString($documentObject->getUidAlias(), implode(EXF_LIST_SEPARATOR, array_unique($uuidList)));
         }
         
@@ -228,9 +217,7 @@ XML;
 
     public function getPrinterConfig()
     {
-        return $this->getWorkbench()
-            ->getApp('exface.EpsonIHubPrinterConnector')
-            ->getConfig();
+        return $this->getWorkbench()->getApp('exface.EpsonIHubPrinterConnector')->getConfig();
     }
 
     public function getPrinterName()
@@ -372,10 +359,7 @@ XML;
      */
     protected function getDataConnection()
     {
-        return $this->getWorkbench()
-            ->data()
-            ->getDataConnection($this->getPrinterConfig()
-            ->getOption('DATA_SOURCE_UID'), $this->getDataConnectionAlias());
+        return $this->getWorkbench()->data()->getDataConnection($this->getPrinterConfig()->getOption('DATA_SOURCE_UID'), $this->getDataConnectionAlias());
     }
 
     /**
@@ -453,9 +437,7 @@ XML;
         foreach ($this->getDataWidget()->getColumns() as $col) {
             if ($col->isHidden())
                 continue;
-            foreach ($document_data->getColumns()
-                ->get($col->getDataColumnName())
-                ->getValues(true) as $row => $value) {
+            foreach ($document_data->getColumns()->get($col->getDataColumnName())->getValues(true) as $row => $value) {
                 $rows[$row][$col->getCaption()] = $value;
             }
             if ($col->getWidth()) {

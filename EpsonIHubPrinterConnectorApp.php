@@ -22,6 +22,7 @@ class EpsonIHubPrinterConnectorApp extends \exface\Core\CommonLogic\AbstractApp
         
         $schema_installer = new SqlSchemaInstaller($this->getNameResolver());
         $schema_installer->setDataConnection($this->getWorkbench()->model()->getModelLoader()->getDataConnection());
+        $schema_installer->setLastUpdateIdConfigOption('LAST_PERFORMED_MODEL_SOURCE_UPDATE_ID');
         $installer->addInstaller($schema_installer);
         
         // TODO add a custom installer like in the MODx CMS connector, that will add the following lines to .htaccess

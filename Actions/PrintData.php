@@ -74,10 +74,10 @@ class PrintData extends AbstractAction
         $document_data = $this->prepareDataSheet($documentObject);
         if ($this->getDocumentObjectRelationPath()) { // print dependent objects
             $rev_path = $this->getMetaObject()->getRelation($this->getDocumentObjectRelationPath())->getReversedRelation()->getAlias();
-            $document_data->addFilterFromString($rev_path, implode(EXF_LIST_SEPARATOR, array_unique($this->getInputDataSheet()->getUidColumn()->getValues(false))));
+            $document_data->addFilterFromString($rev_path, implode($this->getInputDataSheet()->getUidColumn()->getAttribute()->getValueListDelimiter(), array_unique($this->getInputDataSheet()->getUidColumn()->getValues(false))));
         } else { // print main objects
             $uuidList = $this->getInputDataSheet()->getUidColumn()->getValues(false);
-            $document_data->addFilterFromString($documentObject->getUidAlias(), implode(EXF_LIST_SEPARATOR, array_unique($uuidList)));
+            $document_data->addFilterFromString($documentObject->getUidAlias(), implode($documentObject->getUidAttribute()->getValueListDelimiter(), array_unique($uuidList)));
         }
         
         $document_data->dataRead();

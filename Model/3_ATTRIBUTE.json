@@ -65,6 +65,13 @@
             "attribute_alias": "DEFAULT_AGGREGATE_FUNCTION"
         },
         {
+            "expression": "VALUE_LIST_DELIMITER",
+            "name": "VALUE_LIST_DELIMITER",
+            "hidden": false,
+            "data_type": "String",
+            "attribute_alias": "VALUE_LIST_DELIMITER"
+        },
+        {
             "expression": "LABEL",
             "name": "LABEL",
             "hidden": false,
@@ -223,6 +230,7 @@
             "FILTERABLEFLAG": "1",
             "AGGREGATABLEFLAG": "1",
             "DEFAULT_AGGREGATE_FUNCTION": "",
+            "VALUE_LIST_DELIMITER": ",",
             "LABEL": "Print job id",
             "ALIAS": "print_job_id",
             "DATATYPE": "0x30000000000000000000000000000000",
@@ -255,6 +263,7 @@
             "FILTERABLEFLAG": "1",
             "AGGREGATABLEFLAG": "1",
             "DEFAULT_AGGREGATE_FUNCTION": "",
+            "VALUE_LIST_DELIMITER": ",",
             "LABEL": "Device id",
             "ALIAS": "device_id",
             "DATATYPE": "0x30000000000000000000000000000000",
@@ -287,6 +296,7 @@
             "FILTERABLEFLAG": "1",
             "AGGREGATABLEFLAG": "1",
             "DEFAULT_AGGREGATE_FUNCTION": "",
+            "VALUE_LIST_DELIMITER": ",",
             "LABEL": "Content",
             "ALIAS": "content",
             "DATATYPE": "0x31310000000000000000000000000000",
@@ -319,6 +329,7 @@
             "FILTERABLEFLAG": "1",
             "AGGREGATABLEFLAG": "1",
             "DEFAULT_AGGREGATE_FUNCTION": "",
+            "VALUE_LIST_DELIMITER": ",",
             "LABEL": "State id",
             "ALIAS": "state_id",
             "DATATYPE": "0x31000000000000000000000000000000",
@@ -351,6 +362,7 @@
             "FILTERABLEFLAG": "1",
             "AGGREGATABLEFLAG": "1",
             "DEFAULT_AGGREGATE_FUNCTION": "",
+            "VALUE_LIST_DELIMITER": ",",
             "LABEL": "Printer name",
             "ALIAS": "printer_name",
             "DATATYPE": "0x30000000000000000000000000000000",

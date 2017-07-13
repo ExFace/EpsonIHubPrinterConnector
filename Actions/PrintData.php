@@ -11,6 +11,7 @@ use exface\UrlDataConnector\Psr7DataQuery;
 use kabachello\phpTextTable\TextTable;
 use exface\Core\Exceptions\Actions\ActionRuntimeError;
 use exface\Core\Interfaces\DataSheets\DataSheetInterface;
+use exface\Core\CommonLogic\Constants\Icons;
 
 class PrintData extends AbstractAction
 {
@@ -45,7 +46,7 @@ class PrintData extends AbstractAction
     {
         parent::init();
         $this->setInputRowsMin(1);
-        $this->setIconName('print');
+        $this->setIconName(Icons::PRINT);
     }
 
     protected function perform()

@@ -24,5 +24,13 @@
             "model_md5": "c021f08e46821ad1940d7bae04a312f0",
             "model_timestamp": "2017-04-18 16:51:35"
         }
+    },
+    "autoload": {
+        "psr-4": { "exface\\EpsonIHubPrinterConnector\\": "" },
+        "exclude-from-classmap": [
+            "/Config/",
+            "/Translations/",
+            "/Model/"
+        ]
     }
 }

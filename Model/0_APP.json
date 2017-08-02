@@ -68,14 +68,14 @@
     "rows": [
         {
             "CREATED_ON": "2016-11-14 12:26:03",
-            "MODIFIED_ON": "2016-11-14 12:26:03",
+            "MODIFIED_ON": "2017-08-02 09:18:02",
             "CREATED_BY_USER": "0x31000000000000000000000000000000",
             "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
             "UID": "0x11e6aa6582221260a730e4b318306b9a",
             "PACKAGE": "exface\/EpsonIHubPrinterConnector",
             "ALIAS": "exface.EpsonIHubPrinterConnector",
-            "NAME": "POS printer connector for Epson iHub",
-            "LABEL": "POS printer connector for Epson iHub"
+            "NAME": "ExFace POS printer connector for Epson iHub",
+            "LABEL": "ExFace POS printer connector for Epson iHub"
         }
     ],
     "totals_rows": [],

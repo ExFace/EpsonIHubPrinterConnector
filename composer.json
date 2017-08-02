@@ -21,12 +21,14 @@
         "app": {
             "app_uid": "0x11e6aa6582221260a730e4b318306b9a",
             "app_alias": "exface.EpsonIHubPrinterConnector",
-            "model_md5": "c021f08e46821ad1940d7bae04a312f0",
-            "model_timestamp": "2017-04-18 16:51:35"
+            "model_md5": "a20e614a6efe4f0a568f29c1086d0a2e",
+            "model_timestamp": "2017-08-02 09:18:02"
         }
     },
     "autoload": {
-        "psr-4": { "exface\\EpsonIHubPrinterConnector\\": "" },
+        "psr-4": {
+            "exface\\EpsonIHubPrinterConnector\\": ""
+        },
         "exclude-from-classmap": [
             "/Config/",
             "/Translations/",

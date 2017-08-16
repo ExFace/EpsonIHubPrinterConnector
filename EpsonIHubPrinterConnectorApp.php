@@ -3,8 +3,9 @@ namespace exface\EpsonIHubPrinterConnector;
 
 use exface\Core\Interfaces\InstallerInterface;
 use exface\SqlDataConnector\SqlSchemaInstaller;
+use exface\Core\CommonLogic\Model\App;
 
-class EpsonIHubPrinterConnectorApp extends \exface\Core\CommonLogic\AbstractApp
+class EpsonIHubPrinterConnectorApp extends App
 {
 
     /**
@@ -14,7 +15,7 @@ class EpsonIHubPrinterConnectorApp extends \exface\Core\CommonLogic\AbstractApp
      *
      * {@inheritdoc}
      *
-     * @see \exface\Core\CommonLogic\AbstractApp::getInstaller()
+     * @see App::getInstaller()
      */
     public function getInstaller(InstallerInterface $injected_installer = null)
     {

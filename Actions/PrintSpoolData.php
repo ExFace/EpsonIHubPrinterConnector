@@ -105,7 +105,7 @@ class PrintSpoolData extends AbstractAction
      */
     protected function preparePrintJobDataSheet()
     {
-        /** @var \exface\Core\CommonLogic\Model\Object $printJobMetaObject */
+        /** @var \exface\Core\Interfaces\Model\MetaObjectInterface $printJobMetaObject */
         $printJobMetaObject = $this->getWorkbench()->model()->getObject($this->getPrintJobAlias());
         
         $document_data = DataSheetFactory::createFromObjectIdOrAlias($this->getWorkbench(), $printJobMetaObject);

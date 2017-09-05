@@ -78,7 +78,7 @@ class PrintData extends AbstractAction
             $document_data->addFilterFromString($rev_path, implode($this->getInputDataSheet()->getUidColumn()->getAttribute()->getValueListDelimiter(), array_unique($this->getInputDataSheet()->getUidColumn()->getValues(false))));
         } else { // print main objects
             $uuidList = $this->getInputDataSheet()->getUidColumn()->getValues(false);
-            $document_data->addFilterFromString($documentObject->getUidAlias(), implode($documentObject->getUidAttribute()->getValueListDelimiter(), array_unique($uuidList)));
+            $document_data->addFilterFromString($documentObject->getUidAttributeAlias(), implode($documentObject->getUidAttribute()->getValueListDelimiter(), array_unique($uuidList)));
         }
         
         $document_data->dataRead();

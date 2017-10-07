@@ -133,7 +133,7 @@ class PrintData extends AbstractAction
 
     public function setPrintToSpool($value)
     {
-        $this->print_to_spool = \exface\Core\DataTypes\BooleanDataType::parse($value);
+        $this->print_to_spool = \exface\Core\DataTypes\BooleanDataType::cast($value);
         return $this;
     }
 

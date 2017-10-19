@@ -34,10 +34,6 @@
             "attribute_alias": "DATA_SOURCE"
         },
         {
-            "name": "long_description",
-            "attribute_alias": "long_description"
-        },
-        {
             "name": "APP",
             "attribute_alias": "APP"
         },
@@ -80,7 +76,6 @@
             "READABLE_FLAG": "1",
             "WRITABLE_FLAG": "1",
             "DATA_SOURCE": "0x32000000000000000000000000000000",
-            "long_description": "",
             "APP": "0x11e6aa6582221260a730e4b318306b9a",
             "SHORT_DESCRIPTION": "",
             "PARENT_OBJECT": "",

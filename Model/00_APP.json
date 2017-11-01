@@ -26,6 +26,10 @@
             "attribute_alias": "PACKAGE"
         },
         {
+            "name": "default_language_code",
+            "attribute_alias": "default_language_code"
+        },
+        {
             "name": "ALIAS",
             "attribute_alias": "ALIAS"
         },
@@ -42,6 +46,7 @@
             "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
             "UID": "0x11e6aa6582221260a730e4b318306b9a",
             "PACKAGE": "exface\/EpsonIHubPrinterConnector",
+            "default_language_code": "en",
             "ALIAS": "exface.EpsonIHubPrinterConnector",
             "NAME": "ExFace POS printer connector for Epson iHub"
         }

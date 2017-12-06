@@ -46,7 +46,7 @@ class PrintData extends AbstractAction
     {
         parent::init();
         $this->setInputRowsMin(1);
-        $this->setIcon(Icons::PRINT);
+        $this->setIcon(Icons::PRINT_);
     }
 
     protected function perform()

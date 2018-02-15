@@ -1,0 +1,61 @@
+{
+    "id": "0xf8319196ba2c11e7895fe4b318306b9a",
+    "alias_with_namespace": "exface.epsonihubprinterconnector.epson-print-pool",
+    "menu_parent_page_alias": "exface.core.administration",
+    "menu_index": "7",
+    "menu_visible": true,
+    "name": "Epson Print Pool",
+    "description": "View and manage documents queued for printing via Epson iHub POS printers",
+    "intro": "",
+    "replaces_page_alias": null,
+    "contents": {
+        "object_alias": "exface.EpsonIHubPrinterConnector.PRINT_JOB",
+        "widget_type": "DataTable",
+        "multi_select": true,
+        "filters": [
+            {
+                "attribute_alias": "printer_name"
+            },
+            {
+                "attribute_alias": "device_id"
+            },
+            {
+                "attribute_alias": "state_id"
+            }
+        ],
+        "columns": [
+            {
+                "attribute_alias": "printer_name"
+            },
+            {
+                "attribute_alias": "device_id"
+            },
+            {
+                "attribute_alias": "state_id"
+            },
+            {
+                "attribute_alias": "CREATED_ON"
+            },
+            {
+                "attribute_alias": "CREATED_BY_USER__LABEL"
+            }
+        ],
+        "sorters": [
+            {
+                "attribute_alias": "CREATED_ON",
+                "direction": "DESC"
+            }
+        ],
+        "Buttons": [
+            {
+                "action_alias": "exface.Core.CreateObjectDialog"
+            },
+            {
+                "action_alias": "exface.Core.EditObjectDialog"
+            },
+            {
+                "action_alias": "exface.Core.DeleteObject"
+            }
+        ]
+    }
+}

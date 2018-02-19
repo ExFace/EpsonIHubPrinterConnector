@@ -21,7 +21,7 @@ class EpsonIHubPrinterConnectorApp extends App
     {
         $installer = parent::getInstaller($injected_installer);
         
-        $schema_installer = new SqlSchemaInstaller($this->getNameResolver());
+        $schema_installer = new SqlSchemaInstaller($this->getSelector());
         $schema_installer->setDataConnection($this->getWorkbench()->model()->getModelLoader()->getDataConnection());
         $schema_installer->setLastUpdateIdConfigOption('LAST_PERFORMED_MODEL_SOURCE_UPDATE_ID');
         $installer->addInstaller($schema_installer);

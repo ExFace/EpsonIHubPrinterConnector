@@ -328,7 +328,7 @@ XML;
     {
         if (is_null($this->data_widget)) {
             $page = $this->getCalledOnUiPage();
-            $this->data_widget = WidgetFactory::create($page, 'Data', $this->getTriggerWidget());
+            $this->data_widget = WidgetFactory::create($page, 'Data', $this->getCalledByWidget());
             $this->data_widget->setMetaObject($this->getDocumentObject());
         }
         return $this->data_widget;

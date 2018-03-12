@@ -12,10 +12,10 @@ use kabachello\phpTextTable\TextTable;
 use exface\Core\Exceptions\Actions\ActionRuntimeError;
 use exface\Core\Interfaces\DataSheets\DataSheetInterface;
 use exface\Core\CommonLogic\Constants\Icons;
-use exface\Core\Factories\TaskResultFactory;
+use exface\Core\Factories\ResultFactory;
 use exface\Core\Interfaces\Tasks\TaskInterface;
 use exface\Core\Interfaces\DataSources\DataTransactionInterface;
-use exface\Core\Interfaces\Tasks\TaskResultInterface;
+use exface\Core\Interfaces\Tasks\ResultInterface;
 
 class PrintData extends AbstractAction
 {
@@ -58,7 +58,7 @@ class PrintData extends AbstractAction
      * {@inheritDoc}
      * @see \exface\Core\CommonLogic\AbstractAction::perform()
      */
-    protected function perform(TaskInterface $task, DataTransactionInterface $transaction) : TaskResultInterface
+    protected function perform(TaskInterface $task, DataTransactionInterface $transaction) : ResultInterface
     {
         try {
             $message = $this->performPrint($this->getInputDataSheet($task));
@@ -66,7 +66,7 @@ class PrintData extends AbstractAction
             $message = $ex->getMessage();
             throw new ActionRuntimeError($this, 'Printing failed!', null, $ex);
         }
-        return TaskResultFactory::createMessageResult($task, $message);
+        return ResultFactory::createMessageResult($task, $message);
     }
 
     private function asTranslated($message)

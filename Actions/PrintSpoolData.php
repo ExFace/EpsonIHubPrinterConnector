@@ -5,8 +5,8 @@ use exface\Core\CommonLogic\AbstractAction;
 use exface\Core\Factories\DataSheetFactory;
 use exface\Core\Interfaces\Tasks\TaskInterface;
 use exface\Core\Interfaces\DataSources\DataTransactionInterface;
-use exface\Core\Interfaces\Tasks\TaskResultInterface;
-use exface\Core\Factories\TaskResultFactory;
+use exface\Core\Interfaces\Tasks\ResultInterface;
+use exface\Core\Factories\ResultFactory;
 
 class PrintSpoolData extends AbstractAction
 {
@@ -24,7 +24,7 @@ class PrintSpoolData extends AbstractAction
      * {@inheritDoc}
      * @see \exface\Core\CommonLogic\AbstractAction::perform()
      */
-    protected function perform(TaskInterface $task, DataTransactionInterface $transaction) : TaskResultInterface
+    protected function perform(TaskInterface $task, DataTransactionInterface $transaction) : ResultInterface
     {
         try {
             $printerResponse = $this->performPrint();
@@ -40,7 +40,7 @@ class PrintSpoolData extends AbstractAction
             }
         }
         
-        return TaskResultFactory::createTextContentResult($task, $response);
+        return ResultFactory::createTextContentResult($task, $response);
     }
 
     /**

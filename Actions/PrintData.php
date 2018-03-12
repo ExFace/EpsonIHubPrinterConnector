@@ -12,6 +12,10 @@ use kabachello\phpTextTable\TextTable;
 use exface\Core\Exceptions\Actions\ActionRuntimeError;
 use exface\Core\Interfaces\DataSheets\DataSheetInterface;
 use exface\Core\CommonLogic\Constants\Icons;
+use exface\Core\Factories\TaskResultFactory;
+use exface\Core\Interfaces\Tasks\TaskInterface;
+use exface\Core\Interfaces\DataSources\DataTransactionInterface;
+use exface\Core\Interfaces\Tasks\TaskResultInterface;
 
 class PrintData extends AbstractAction
 {
@@ -49,15 +53,20 @@ class PrintData extends AbstractAction
         $this->setIcon(Icons::PRINT_);
     }
 
-    protected function perform()
+    /**
+     * 
+     * {@inheritDoc}
+     * @see \exface\Core\CommonLogic\AbstractAction::perform()
+     */
+    protected function perform(TaskInterface $task, DataTransactionInterface $transaction) : TaskResultInterface
     {
         try {
-            $this->performPrint();
+            $message = $this->performPrint($this->getInputDataSheet($task));
         } catch (\Throwable $ex) {
-            $this->setResultMessage($ex->getMessage());
+            $message = $ex->getMessage();
             throw new ActionRuntimeError($this, 'Printing failed!', null, $ex);
         }
-        $this->setResult('');
+        return TaskResultFactory::createMessageResult($task, $message);
     }
 
     private function asTranslated($message)
@@ -65,9 +74,9 @@ class PrintData extends AbstractAction
         return $this->getWorkbench()->getApp('exface.EpsonIHubPrinterConnector')->getTranslator()->translate($message);
     }
 
-    protected function performPrint()
+    protected function performPrint(DataSheetInterface $dataSheet)
     {
-        $this->accept();
+        $this->accept($dataSheet);
         
         $documentObject = $this->getDocumentObject();
         
@@ -75,9 +84,9 @@ class PrintData extends AbstractAction
         $document_data = $this->prepareDataSheet($documentObject);
         if ($this->getDocumentObjectRelationPath()) { // print dependent objects
             $rev_path = $this->getMetaObject()->getRelation($this->getDocumentObjectRelationPath())->getReversedRelation()->getAlias();
-            $document_data->addFilterFromString($rev_path, implode($this->getInputDataSheet()->getUidColumn()->getAttribute()->getValueListDelimiter(), array_unique($this->getInputDataSheet()->getUidColumn()->getValues(false))));
+            $document_data->addFilterFromString($rev_path, implode($dataSheet->getUidColumn()->getAttribute()->getValueListDelimiter(), array_unique($dataSheet->getUidColumn()->getValues(false))));
         } else { // print main objects
-            $uuidList = $this->getInputDataSheet()->getUidColumn()->getValues(false);
+            $uuidList = $dataSheet->getUidColumn()->getValues(false);
             $document_data->addFilterFromString($documentObject->getUidAttributeAlias(), implode($documentObject->getUidAttribute()->getValueListDelimiter(), array_unique($uuidList)));
         }
         
@@ -104,15 +113,17 @@ class PrintData extends AbstractAction
         // direct print or spooling
         if ($this->getPrintToSpool()) {
             $this->sendToSpool($xml);
-            $this->setResultMessage($this->asTranslated("RECEIPT_PRINTING_DOCUMENT_SENT_TO_SPOOL"));
+            $message = $this->asTranslated("RECEIPT_PRINTING_DOCUMENT_SENT_TO_SPOOL");
         } else {
             try {
                 $this->sendToPrinter($xml);
-                $this->setResultMessage($this->asTranslated("RECEIPT_PRINTING_DOCUMENT_SENT"));
+                $message = $this->asTranslated("RECEIPT_PRINTING_DOCUMENT_SENT");
             } catch (ErrorExceptionInterface $e) {
-                $this->setResultMessage($this->asTranslated("RECEIPT_PRINTING_FAILED"));
+                $message = $this->asTranslated("RECEIPT_PRINTING_FAILED");
             }
         }
+        
+        return $message;
     }
 
     protected function accept()

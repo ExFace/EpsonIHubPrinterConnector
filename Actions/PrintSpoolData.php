@@ -3,6 +3,10 @@ namespace exface\EpsonIHubPrinterConnector\Actions;
 
 use exface\Core\CommonLogic\AbstractAction;
 use exface\Core\Factories\DataSheetFactory;
+use exface\Core\Interfaces\Tasks\TaskInterface;
+use exface\Core\Interfaces\DataSources\DataTransactionInterface;
+use exface\Core\Interfaces\Tasks\TaskResultInterface;
+use exface\Core\Factories\TaskResultFactory;
 
 class PrintSpoolData extends AbstractAction
 {
@@ -15,13 +19,18 @@ class PrintSpoolData extends AbstractAction
 
     private $debug = false;
 
-    protected function perform()
+    /**
+     * 
+     * {@inheritDoc}
+     * @see \exface\Core\CommonLogic\AbstractAction::perform()
+     */
+    protected function perform(TaskInterface $task, DataTransactionInterface $transaction) : TaskResultInterface
     {
         try {
             $printerResponse = $this->performPrint();
-            echo $printerResponse;
+            $response = $printerResponse;
         } catch (\Throwable $ex) {
-            $this->setResultMessage($ex->getMessage());
+            $response = $ex->getMessage();
             // Since we are talking to a printer here, there is no need to do any standard exception handling - it would
             // only irretate the printer. For debug purposes we can always add the &debug=1 URL parameter.
             if ($this->isInDebugMode()) {
@@ -30,13 +39,23 @@ class PrintSpoolData extends AbstractAction
                 // TODO Output some XML that will let the printer know, something went wrong.
             }
         }
+        
+        return TaskResultFactory::createTextContentResult($task, $response);
     }
 
+    /**
+     * 
+     * @return boolean
+     */
     protected function isInDebugMode()
     {
         return $this->getWorkbench()->getRequestParam('debug') ? true : false;
     }
 
+    /**
+     * 
+     * @return string
+     */
     protected function performPrint()
     {
         $this->setPrinter();

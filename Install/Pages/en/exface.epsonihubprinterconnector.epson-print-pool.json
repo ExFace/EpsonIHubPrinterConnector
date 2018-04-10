@@ -48,10 +48,10 @@
         ],
         "Buttons": [
             {
-                "action_alias": "exface.Core.CreateObjectDialog"
+                "action_alias": "exface.Core.ShowObjectCreateDialog"
             },
             {
-                "action_alias": "exface.Core.EditObjectDialog"
+                "action_alias": "exface.Core.ShowObjectEditDialog"
             },
             {
                 "action_alias": "exface.Core.DeleteObject"

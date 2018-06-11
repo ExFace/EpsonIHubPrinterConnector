@@ -338,8 +338,8 @@ XML;
     protected function getDataWidget()
     {
         if (is_null($this->data_widget)) {
-            $page = $this->getCalledOnUiPage();
-            $this->data_widget = WidgetFactory::create($page, 'Data', $this->getCalledByWidget());
+            $page = $this->getWidgetDefinedIn()->getPage();
+            $this->data_widget = WidgetFactory::create($page, 'Data', $this->getWidgetDefinedIn());
             $this->data_widget->setMetaObject($this->getDocumentObject());
         }
         return $this->data_widget;

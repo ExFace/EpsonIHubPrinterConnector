@@ -28,7 +28,7 @@ class EpsonIHubPrinterConnectorApp extends App
         
         // TODO add a custom installer like in the MODx CMS connector, that will add the following lines to .htaccess
         // # Epson iHub printer server
-        // RewriteRule ^iHubPrintServer/([^/]+)/$ exface/exface.php?exftpl=exface.JEasyUiTemplate&action=exface.EpsonIHubPrinterConnector.PrintSpoolData&printer=$1 [L]
+        // RewriteRule ^iHubPrintServer/([^/]+)/$ exface/exface.php?exftpl=exface.JEasyUIFacade&action=exface.EpsonIHubPrinterConnector.PrintSpoolData&printer=$1 [L]
         
         return $installer;
     }

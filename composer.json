@@ -14,8 +14,8 @@
         "issues": "https://github.com/exface/EpsonIHubPrinterConnector/issues"
     },
     "require": {
-        "exface/core": "^0.1",
-        "kabachello/phptexttable": "^0.1"
+        "exface/core": "~0.1",
+        "kabachello/phptexttable": "~0.1"
     },
     "extra": {
         "app": {

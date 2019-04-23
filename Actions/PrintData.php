@@ -16,6 +16,7 @@ use exface\Core\Factories\ResultFactory;
 use exface\Core\Interfaces\Tasks\TaskInterface;
 use exface\Core\Interfaces\DataSources\DataTransactionInterface;
 use exface\Core\Interfaces\Tasks\ResultInterface;
+use exface\Core\Factories\DataSourceFactory;
 
 class PrintData extends AbstractAction
 {
@@ -37,6 +38,8 @@ class PrintData extends AbstractAction
     private $footer_barcode_type = 'code39';
 
     private $data_connection_alias = null;
+    
+    private $dataSource = null;
 
     private $print_to_spool = null;
 
@@ -371,7 +374,10 @@ XML;
      */
     protected function getDataConnection()
     {
-        return $this->getWorkbench()->data()->getDataConnection($this->getPrinterConfig()->getOption('DATA_SOURCE_UID'), $this->getDataConnectionAlias());
+        if ($this->dataSource === null) {
+            $this->dataSource = DataSourceFactory::createFromModel($this->getWorkbench(), $this->getPrinterConfig()->getOption('DATA_SOURCE_UID'), $this->getDataConnectionAlias());
+        }
+        return $this->dataSource->getConnection();
     }
 
     /**

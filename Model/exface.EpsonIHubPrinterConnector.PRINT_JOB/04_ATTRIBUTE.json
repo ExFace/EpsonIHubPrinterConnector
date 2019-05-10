@@ -74,8 +74,12 @@
             "attribute_alias": "COMMENTS"
         },
         {
-            "name": "LABEL",
-            "attribute_alias": "LABEL"
+            "name": "NAME",
+            "attribute_alias": "NAME"
+        },
+        {
+            "name": "RELATION_CARDINALITY",
+            "attribute_alias": "RELATION_CARDINALITY"
         },
         {
             "name": "ALIAS",
@@ -178,7 +182,8 @@
             "DELETE_WITH_RELATED_OBJECT": null,
             "DEFAULT_DISPLAY_UXON": null,
             "COMMENTS": "",
-            "LABEL": "Print job id",
+            "NAME": "Print job id",
+            "RELATION_CARDINALITY": "",
             "ALIAS": "print_job_id",
             "DATATYPE": "0x30000000000000000000000000000000",
             "DATA_ADDRESS": "print_job_id",
@@ -219,7 +224,8 @@
             "DELETE_WITH_RELATED_OBJECT": null,
             "DEFAULT_DISPLAY_UXON": null,
             "COMMENTS": "",
-            "LABEL": "Device id",
+            "NAME": "Device id",
+            "RELATION_CARDINALITY": "",
             "ALIAS": "device_id",
             "DATATYPE": "0x30000000000000000000000000000000",
             "DATA_ADDRESS": "device_id",
@@ -260,7 +266,8 @@
             "DELETE_WITH_RELATED_OBJECT": null,
             "DEFAULT_DISPLAY_UXON": null,
             "COMMENTS": "",
-            "LABEL": "Content",
+            "NAME": "Content",
+            "RELATION_CARDINALITY": "",
             "ALIAS": "content",
             "DATATYPE": "0x31310000000000000000000000000000",
             "DATA_ADDRESS": "content",
@@ -301,7 +308,8 @@
             "DELETE_WITH_RELATED_OBJECT": null,
             "DEFAULT_DISPLAY_UXON": null,
             "COMMENTS": "",
-            "LABEL": "State id",
+            "NAME": "State id",
+            "RELATION_CARDINALITY": "",
             "ALIAS": "state_id",
             "DATATYPE": "0x31000000000000000000000000000000",
             "DATA_ADDRESS": "state_id",
@@ -342,7 +350,8 @@
             "DELETE_WITH_RELATED_OBJECT": null,
             "DEFAULT_DISPLAY_UXON": null,
             "COMMENTS": "",
-            "LABEL": "Printer name",
+            "NAME": "Printer name",
+            "RELATION_CARDINALITY": "",
             "ALIAS": "printer_name",
             "DATATYPE": "0x30000000000000000000000000000000",
             "DATA_ADDRESS": "printer_name",

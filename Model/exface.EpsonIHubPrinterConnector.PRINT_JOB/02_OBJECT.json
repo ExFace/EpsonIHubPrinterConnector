@@ -38,6 +38,14 @@
             "attribute_alias": "DOCS"
         },
         {
+            "name": "NAME",
+            "attribute_alias": "NAME"
+        },
+        {
+            "name": "INHERIT_DATA_SOURCE_BASE_OBJECT",
+            "attribute_alias": "INHERIT_DATA_SOURCE_BASE_OBJECT"
+        },
+        {
             "name": "DATA_SOURCE",
             "attribute_alias": "DATA_SOURCE"
         },
@@ -62,10 +70,6 @@
             "attribute_alias": "DEFAULT_EDITOR_UXON"
         },
         {
-            "name": "LABEL",
-            "attribute_alias": "LABEL"
-        },
-        {
             "name": "ALIAS",
             "attribute_alias": "ALIAS"
         },
@@ -85,13 +89,14 @@
             "WRITABLE_FLAG": "1",
             "COMMENTS": "",
             "DOCS": "",
+            "NAME": "Print job",
+            "INHERIT_DATA_SOURCE_BASE_OBJECT": "1",
             "DATA_SOURCE": "0x32000000000000000000000000000000",
             "APP": "0x11e6aa6582221260a730e4b318306b9a",
             "SHORT_DESCRIPTION": "",
             "PARENT_OBJECT": "",
             "DATA_ADDRESS_PROPS": null,
             "DEFAULT_EDITOR_UXON": null,
-            "LABEL": "Print job",
             "ALIAS": "PRINT_JOB",
             "DATA_ADDRESS": "exf_epson_print_pool"
         }

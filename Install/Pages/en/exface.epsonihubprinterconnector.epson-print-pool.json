@@ -2,7 +2,7 @@
     "id": "0xf8319196ba2c11e7895fe4b318306b9a",
     "alias_with_namespace": "exface.epsonihubprinterconnector.epson-print-pool",
     "menu_parent_page_alias": "exface.core.administration",
-    "menu_index": "7",
+    "menu_index": "5",
     "menu_visible": true,
     "name": "Epson Print Pool",
     "description": "View and manage documents queued for printing via Epson iHub POS printers",
